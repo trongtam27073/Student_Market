@@ -1,6 +1,6 @@
 <?php
 session_start();
-session_unset(); // Xóa tất cả biến session
-session_destroy(); // Hủy session
-header("Location: index.php"); // Quay về trang chủ
+session_unset(); 
+session_destroy(); 
+header("Location: index.php"); 
 exit();

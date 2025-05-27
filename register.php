@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $confirm = $_POST['confirm'];
 
-    // Kiểm tra các ô nhập
     if (empty($name) || empty($email) || empty($password) || empty($confirm)) {
         $errors[] = "Vui lòng điền đầy đủ thông tin.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -19,13 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Mật khẩu xác nhận không khớp.";
     }
 
-    // Kiểm tra trùng email
     $check = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
     if (mysqli_num_rows($check) > 0) {
         $errors[] = "Email đã được sử dụng.";
     }
 
-    // Nếu không có lỗi thì lưu vào database
     if (empty($errors)) {
         $hashed = password_hash($password, PASSWORD_DEFAULT);
         $stmt = mysqli_prepare($conn, "INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
@@ -39,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <style>
-  /* Container phần đăng ký */
   .register-container {
     max-width: 420px;
     margin: 40px auto;
@@ -92,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     background-color: #cc0000;
   }
 
-  /* Lỗi hiển thị */
   .register-container .alert-danger {
     background-color: #a94442;
     border-color: #843534;
@@ -102,7 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     margin-bottom: 20px;
   }
 
-  /* Thành công */
   .register-container .alert-success {
     background-color: #3c763d;
     border-color: #2b542c;
